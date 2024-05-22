@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/suryadharma5/ts-restful-api#readme",
   "dependencies": {
+    "@prisma/client": "^5.14.0",
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "winston": "^3.13.0",
