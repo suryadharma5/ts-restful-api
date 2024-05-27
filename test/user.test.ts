@@ -38,7 +38,7 @@ describe('POST /api/users', () => {
     })
 })
 
-describe.only('POST /api/users/login', () => {
+describe('POST /api/users/login', () => {
     beforeEach(async () => {
         await UserTest.create()
     })
@@ -87,4 +87,36 @@ describe.only('POST /api/users/login', () => {
         expect(response.status).toBe(401)
         expect(response.body.errors).toBeDefined()
     })
+})
+
+describe('GET /api/users/current', () => {
+    beforeEach(async () => {
+        await UserTest.create()
+    })
+
+    afterEach(async () => {
+        await UserTest.delete()
+    })
+
+    it('should be able to get current user', async () => {
+        const response = await supertest(web)
+            .get("/api/users/current")
+            .set("X-API-TOKEN", "test")
+
+        logger.debug(response.body)
+        expect(response.status).toBe(200)
+        expect(response.body.data.username).toBe("test")
+        expect(response.body.data.name).toBe("test")
+    })
+
+    it('should failed to get current user if token is invalid', async () => {
+        const response = await supertest(web)
+            .get("/api/users/current")
+            .set("X-API-TOKEN", "salah")
+
+        logger.debug(response.body)
+        expect(response.status).toBe(401)
+        expect(response.body.errors).toBeDefined()
+    })
+
 })
