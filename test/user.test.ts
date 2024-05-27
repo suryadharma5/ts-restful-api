@@ -74,4 +74,17 @@ describe.only('POST /api/users/login', () => {
         expect(response.status).toBe(401)
         expect(response.body.errors).toBeDefined()
     })
+
+    it('should reject login user if password is wrong', async () => {
+        const response = await supertest(web)
+            .post("/api/users/login")
+            .send({
+                username: "test",
+                password: "salah"
+            })
+
+        logger.debug(response.body)
+        expect(response.status).toBe(401)
+        expect(response.body.errors).toBeDefined()
+    })
 })
