@@ -21,6 +21,11 @@
     "url": "https://github.com/suryadharma5/ts-restful-api/issues"
   },
   "homepage": "https://github.com/suryadharma5/ts-restful-api#readme",
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
   "dependencies": {
     "@prisma/client": "^5.14.0",
     "bcrypt": "^5.1.1",
