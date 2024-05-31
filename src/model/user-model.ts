@@ -17,6 +17,11 @@ export type LoginUserRequest = {
     password: string
 }
 
+export type UpdateUserRequest = {
+    name?: string
+    password?: string
+}
+
 // ngikutin schema prisma kita yang User
 export function toUserResponse(user: User): UserResponse {
     return {
