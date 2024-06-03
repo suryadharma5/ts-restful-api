@@ -33,4 +33,20 @@ describe.only('POST /api/contacts', () => {
         expect(response.body.data.email).toBe("surya@mail.com")
         expect(response.body.data.phone).toBe("0877690123")
     })
+
+    it('should reject create new contact if data is invalid', async () => {
+        const response = await supertest(web)
+            .post('/api/contacts')
+            .set("X-API-TOKEN", "test")
+            .send({
+                first_name: "",
+                last_name: "",
+                email: "surya.com",
+                phone: "08776901221223214431242241413"
+            })
+
+        logger.debug(response.body)
+        expect(response.status).toBe(400)
+        expect(response.body.errors).toBeDefined()
+    })
 })
