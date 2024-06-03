@@ -188,7 +188,7 @@ describe('PATCH /api/users/current', () => {
     })
 })
 
-describe.only('PATCH /api/users/current', () => {
+describe('PATCH /api/users/current', () => {
     beforeEach(async () => {
         await UserTest.create()
     })
