@@ -3,7 +3,7 @@ import { ContactTest, UserTest } from "./test-util"
 import { web } from "../src/application/web"
 import { logger } from "../src/application/logging"
 
-describe.only('POST /api/contacts', () => {
+describe('POST /api/contacts', () => {
     beforeEach(async () => {
         await UserTest.delete()
         await UserTest.create()
@@ -50,3 +50,42 @@ describe.only('POST /api/contacts', () => {
         expect(response.body.errors).toBeDefined()
     })
 })
+
+describe('GET /api/contacts/:contactId', () => {
+    beforeEach(async () => {
+        await UserTest.create()
+        await ContactTest.create()
+    })
+
+    afterEach(async () => {
+        await ContactTest.deleteAll()
+        await UserTest.delete()
+    })
+
+    it('should be able to get contact', async () => {
+        const contact = await ContactTest.get()
+        const response = await supertest(web)
+            .get(`/api/contacts/${contact.id}`)
+            .set("X-API-TOKEN", "test")
+
+        logger.debug(response.body)
+        expect(response.status).toBe(200)
+        expect(response.body.data.id).toBeDefined()
+        expect(response.body.data.first_name).toBe(contact.first_name)
+        expect(response.body.data.last_name).toBe(contact.last_name)
+        expect(response.body.data.email).toBe(contact.email)
+        expect(response.body.data.phone).toBe(contact.phone)
+    })
+
+    it.only('should not be able to get contact if contact is not found', async () => {
+        const contact = await ContactTest.get()
+        const response = await supertest(web)
+            .get(`/api/contacts/${contact.id + 1}`)
+            .set("X-API-TOKEN", "test")
+
+        logger.debug(response.body)
+        expect(response.status).toBe(404)
+        expect(response.body.errors).toBeDefined()
+    })
+})
+
