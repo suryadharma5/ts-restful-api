@@ -15,3 +15,4 @@ apiRouter.delete("/api/users/current", UserController.logout)
 // Contact API
 apiRouter.post('/api/contacts', ContactController.create)
 apiRouter.get('/api/contacts/:contactId(\\d+)', ContactController.get) // mengirim req params contactId dengan tipe number saja
+apiRouter.put('/api/contacts/:contactId(\\d+)', ContactController.update)
