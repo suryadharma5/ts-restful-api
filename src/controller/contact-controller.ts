@@ -52,7 +52,7 @@ export class ContactController {
             const response = await ContactService.remove(req.user!, contactId)
 
             res.status(200).json({
-                data: "ok"
+                data: "OK"
             })
         } catch (e) {
             next(e)
