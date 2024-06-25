@@ -17,3 +17,4 @@ apiRouter.post('/api/contacts', ContactController.create)
 apiRouter.get('/api/contacts/:contactId(\\d+)', ContactController.get) // mengirim req params contactId dengan tipe number saja
 apiRouter.put('/api/contacts/:contactId(\\d+)', ContactController.update)
 apiRouter.delete('/api/contacts/:contactId(\\d+)', ContactController.remove)
+apiRouter.get('/api/contacts', ContactController.search)
